@@ -1,0 +1,132 @@
+<!DOCTYPE HTML>
+<html lang = "en">
+    
+    <head>
+        <meta charset = "utf-8">
+        <title>Simulation Software</title>
+        <meta name = "viewport" content = "width=device-width, initial-scale=1">
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+        <!-- <link href = "{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet" type="text/css"> -->
+        <link href = "{{ url_for('static', filename='css/bootstrap.custom.css') }}" rel="stylesheet" type="text/css">
+        <link rel = "shortcut icon" href = "{{ url_for('static', filename='christlogo_icon.ico') }}">
+    </head>
+
+    <header>
+        <nav style="background-color: var(--bar-bg-color); border: 0px; padding: 20px" class="navbar navbar-default">
+
+            <div class="container-fluid">
+                
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                <a class="navbar-brand" target="_blank" href="https://christuniversity.in/">
+                    <img style="max-width: 100px; margin-top: -7px" src=" {{ url_for('static', filename='images/christlogo1.png') }} ">
+                </a>
+                </div>
+            
+                <ul class="nav navbar-nav navbar-left">
+                    <li style="font-size: 140%; padding-left: 60px">
+                        <a href="/game-page" style=" color: var(--bar-text-color)">The F Sense</a>
+                    </li>
+                </ul>
+                
+                
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="#" style=" color: var(--bar-text-color)">Home</a></li>
+                    <li><a href="#" style=" color: var(--bar-text-color)">Tutorial</a></li>
+                    <li><a href="#" style=" color: var(--bar-text-color)">FAQ</a></li>
+                    <li style="padding: 10px; padding-left: 100px;font-size: 140%; color: var(--timer-text-color)">
+                        <b>00:00:00</b>
+                    </li>
+                </ul>
+            </div> <!-- /.container-fluid -->
+
+        </nav>
+    </header>
+
+    <body style="background: var(--body-bg-color);">
+        <div class="container-fluid" style="min-height: 700px; max-width: 1000px; padding-top: 50px">
+
+            <!-- Balance Sheet, PNL and Ratios: UL-->
+            <ul style="list-style: none;">
+                
+                <!-- Balance Sheet Drop-Down Slider -->
+                <li style="margin-bottom: 20px">
+                    <a class="btn btn-success navbar-collapse collapse in" style="background-color: var(--bar-bg-color)" role="button" data-toggle="collapse" href="#BalanceSheet" aria-expanded="true" aria-controls="BalanceSheet">
+                        <div class="text-left" style="padding-bottom: 5px">
+                            Balance Sheet
+                        </div>
+                    </a>
+                </li>
+                <!-- Balance Sheet Table: href for the above section; notice that id="BalanceSheet" and above the href="#BalanceSheet"-->
+                <div class="collapse in" id="BalanceSheet">
+                    <div class="well">
+                        <div class="container-fluid" style="padding-left: 100px; min-width: 800px; max-width: 800px">
+                            {% for table in tables %}
+                                {{ table | safe }}
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+        
+                <!-- PNL Drop-Down Slider -->
+                <li style="margin-bottom: 20px">
+                    <a class="btn btn-success collapse navbar-collapse" style="background-color: var(--bar-bg-color)" role="button" data-toggle="collapse" href="#PNL" aria-expanded="true" aria-controls="PNL">
+                        <div class="text-left" style="padding-bottom: 5px">
+                            PNL
+                        </div>
+                    </a>
+                </li>
+                <!-- PNL Table: href for the above section; notice that id="PNL" and above the href="#PNL"-->
+                <div class="collapse" id="PNL">
+                    <div class="well">
+                        <div class="container-fluid" style="padding-left: 100px ;min-width: 800px;max-width: 800px">
+                            {% for table in tables %}
+                                {{ table | safe }}
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+        
+                <!-- Ratios Drop-Down Slider -->
+                <li style="margin-bottom: 20px">
+                    <a class="btn btn-success collapse navbar-collapse" style="background-color: var(--bar-bg-color)" role="button" data-toggle="collapse" href="#Ratios" aria-expanded="false" aria-controls="Ratios">
+                        <div class="text-left" style="padding-bottom: 5px">    
+                            Ratios  
+                        </div>
+                    </a>
+                </li>
+                <!-- Ratios Table: href for the above section; notice that id="Ratios" and above the href="#Ratios"-->
+                <div class="collapse" id="Ratios">
+                    <div class="well">
+                            <div class="container-fluid" style="padding-left: 100px ;min-width: 800px;max-width: 800px">
+                                    {% for table in tables %}
+                                    {{ table | safe }}
+                                {% endfor %}
+                            </div>
+                    </div>
+                </div>
+            </ul>
+        
+        </div>
+
+        
+        <!-- JavaScript linking for BootStrap JS Codes - Doesn't show in body anywhere -->
+        <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+        <script type="text/javascript" src=" {{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+        
+    </body>
+
+    <footer>
+        <div class="footer-container" style="background-color: var(--bar-bg-color)">
+            <footer class="page-footer" style="padding: 10px">
+                <div class="footer-copyright">
+                    <div class="container text-center" style="color: var(--bar-text-color); text-emphasis: bold;">
+                        © 2019 CHRIST (Deemed to be University)
+                    </div>
+                </div>
+            </footer>
+        </div>
+    </footer>
+    
+</html>

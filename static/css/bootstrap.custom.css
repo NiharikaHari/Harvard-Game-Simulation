@@ -1,0 +1,33 @@
+:root{
+    --bar-bg-color:  darkred;/*rgb(34,43,53);*/
+    --bar-text-color: #cfcfcf;
+    --body-bg-color: rgb(237,237,237);
+    --timer-text-color:  #cfcfcf;
+    --table-bg-stripe-color1: rgb(139, 0, 0,0.2);
+    --table-bg-stripe-color2: #ffffff;
+}
+
+.table-striped-balancesheet>tbody>tr:nth-of-type(odd){
+    background-color: var(--table-bg-stripe-color1);
+}
+.table-striped-balancesheet>tbody>tr:nth-of-type(even){
+    background-color: var(--table-bg-stripe-color2)
+}
+
+.table-striped-balancesheet>thead>tr{
+    background-color: var(--table-bg-stripe-color2)
+    text-align: center;
+    vertical-align: center;
+    border: none;
+}
+
+.table-striped-balancesheet>tbody>tr{
+    text-align: center;
+    vertical-align: center;
+    border: none;
+}
+
+.table-striped-balancesheet{
+    border-collapse: collapse;
+}
+
