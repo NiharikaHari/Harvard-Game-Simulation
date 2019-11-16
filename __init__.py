@@ -49,15 +49,19 @@ def login():
     if request.method == 'POST':
         username = int(request.form['username'])
         password = request.form['password']
-        
         if username in loginDirectory:
             if loginDirectory[username] == password:
+                
                 session['username'] = request.form['username']
                 return redirect(url_for('gamePage'))
             else:
-                return redirect(url_for('login'))
+                alertPassword = 'Invalid Password'
+                alertUsername = ''
+                return render_template('login.html', alertPassword = alertPassword)
         else:
-            return redirect(url_for('login'))
+            alertUsername = 'Invalid Username'
+            alertPassword = ''
+            return render_template('login.html', alertUsername = alertUsername)
     else:
         if 'username' in session:
             return redirect(url_for('gamePage'))
@@ -67,7 +71,7 @@ def login():
 @app.route('/logout')
 def logout():
     session.pop('username',None)
-    return 'You have been logged out!'
+    return redirect(url_for('login'))
 
 @app.route('/checksession')
 def checksession():
@@ -115,9 +119,20 @@ def gamePage():
     
         ratios = cur.fetchall()
 
-        return render_template('gamePage.html', incomeStatement = incomeStatement, balanceSheet = balanceSheet, ratios = ratios)
+        return render_template('abc.html', incomeStatement = incomeStatement, balanceSheet = balanceSheet, ratios = ratios)
     return 'You are not logged in!'
 
+@app.route('/tutorial')
+def tutorial():
+    if 'username' in session:
+        return render_template('tutorial.html')
+    return 'You are not logged in!'
+
+@app.route('/faq')
+def faq():
+    if 'username' in session:
+        return render_template('faq.html')
+    return 'You are not logged in!'
 
 if __name__ == '__main__':
     app.run(debug=True)

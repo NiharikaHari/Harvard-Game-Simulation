@@ -1,0 +1,439 @@
+
+
+
+<!DOCTYPE HTML>
+<html lang = "en">
+    
+    <head>
+        <meta charset = "utf-8">
+        <title>Simulation Software</title>
+        <meta name = "viewport" content = "width=device-width, initial-scale=1">
+
+        <link href='https://fonts.googleapis.com/css?family=Droid Serif' rel='stylesheet'>
+
+        <link href = "{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet" type="text/css">
+        <link href = "{{ url_for('static', filename='css/bootstrap.custom.css') }}" rel="stylesheet" type="text/css"> 
+        <link rel = "shortcut icon" href = "{{ url_for('static', filename='christlogo_icon.ico') }}">
+    <style type="text/css">
+        body
+        {
+            font-family: 'Droid Serif';font-size: 15px; 
+        }
+        table
+        {
+            border-color: white;
+            
+            
+        }
+        button
+        {
+            width: 200px;
+            height: 35px;
+            border-color: white;
+            background: rgb(128,0,0);
+            border-radius: 10px;
+            color: white;
+            font-size: 15px;
+        }
+        select
+    {
+      width: 49px;
+      height: 50px;
+      border-radius: 25px;
+      color: black;
+    }
+    option
+    {
+        background-color: maroon;
+        color: white;
+    }
+    
+    </style>
+    </head>
+
+    <header>
+        <nav style="background-color: var(--bar-bg-color); border: 0px; padding: 20px" class="navbar navbar-default">
+
+            <div class="container-fluid">
+                
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                <a class="navbar-brand" target="_blank" href="https://christuniversity.in/">
+                    <img style="max-width: 100px; margin-top: -7px" src=" {{ url_for('static', filename='images/christlogo1.png') }} ">
+                </a>
+                </div>
+            
+                <ul class="nav navbar-nav navbar-left">
+                    <li style="font-size: 140%; padding-left: 60px">
+                        <a href="/gamePage" style=" color: var(--bar-text-color)">The F Sense</a>
+                    </li>
+                </ul>
+                
+                
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="/gamePage" style=" color: var(--bar-text-color)">Home</a></li>
+                    <li><a href="/tutorial" style=" color: var(--bar-text-color)">Tutorial</a></li>
+                    <li><a href="/faq" style=" color: var(--bar-text-color)">FAQ</a></li>
+                    <li><a href="/logout" style=" color: var(--bar-text-color)">Logout</a></li>
+                    <li style="padding: 10px; padding-left: 100px;font-size: 140%; color: var(--timer-text-color)">
+                        <b>00:00:00</b>
+                    </li>
+                </ul>
+            </div> <!-- /.container-fluid -->
+
+        </nav>
+    </header>
+
+    <body style="background: var(--body-bg-color);">
+
+        <div class="container-fluid" style="padding-left: 100px; min-width: 1030px; max-width: 1030px">
+            <table width="100%" class="table-striped-balancesheet" style="position: relative; background-color: maroon; color: white; left: -30px; top: 40px; height: 55px; border-radius: 25px;">
+    <td width="24%">Company Code</td>
+    <td><select required>
+      <option>-A-</option>
+      <option value="Airline">Airline</option>
+      <option value="Automobile Manufacturing">Automobile Manufacturing</option>
+      <option value="Hyper Market Chain">Hyper Market Chain</option>
+      <option value="Search Service">Search Service</option>
+      <option value="Steel Producer">Steel Producer</option>
+      <option value="Quick Service Resturant">Quick Service Resturant</option>
+      <option value="Software Services">Software Services</option>
+      <option value="Cement">Cement</option>
+      <option value="Healthcare">Healthcare</option>
+      <option value="Real State Developer">Real State Developer</option>
+      <option value="Retail Jewelry Store">Retail Jewelry Store</option>
+      <option value="Hotel Chain">Hotel Chain</option>
+      <option value="Financial Services">Financial Services</option>
+      <option value="Agricultural Product">Agricultural Product</option>
+    </select></td>
+    <td><select required>
+      <option>-B-</option>
+      <option value="Airline">Airline</option>
+      <option value="Automobile Manufacturing">Automobile Manufacturing</option>
+      <option value="Hyper Market Chain">Hyper Market Chain</option>
+      <option value="Search Service">Search Service</option>
+      <option value="Steel Producer">Steel Producer</option>
+      <option value="Quick Service Resturant">Quick Service Resturant</option>
+      <option value="Software Services">Software Services</option>
+      <option value="Cement">Cement</option>
+      <option value="Healthcare">Healthcare</option>
+      <option value="Real State Developer">Real State Developer</option>
+      <option value="Retail Jewelry Store">Retail Jewelry Store</option>
+      <option value="Hotel Chain">Hotel Chain</option>
+      <option value="Financial Services">Financial Services</option>
+      <option value="Agricultural Product">Agricultural Product</option>
+    </select></td><td><select required>
+      <option>-C-</option>
+      <option value="Airline">Airline</option>
+      <option value="Automobile Manufacturing">Automobile Manufacturing</option>
+      <option value="Hyper Market Chain">Hyper Market Chain</option>
+      <option value="Search Service">Search Service</option>
+      <option value="Steel Producer">Steel Producer</option>
+      <option value="Quick Service Resturant">Quick Service Resturant</option>
+      <option value="Software Services">Software Services</option>
+      <option value="Cement">Cement</option>
+      <option value="Healthcare">Healthcare</option>
+      <option value="Real State Developer">Real State Developer</option>
+      <option value="Retail Jewelry Store">Retail Jewelry Store</option>
+      <option value="Hotel Chain">Hotel Chain</option>
+      <option value="Financial Services">Financial Services</option>
+      <option value="Agricultural Product">Agricultural Product</option>
+    </select></td><td><select required>
+      <option>-D-</option>
+      <option value="Airline">Airline</option>
+      <option value="Automobile Manufacturing">Automobile Manufacturing</option>
+      <option value="Hyper Market Chain">Hyper Market Chain</option>
+      <option value="Search Service">Search Service</option>
+      <option value="Steel Producer">Steel Producer</option>
+      <option value="Quick Service Resturant">Quick Service Resturant</option>
+      <option value="Software Services">Software Services</option>
+      <option value="Cement">Cement</option>
+      <option value="Healthcare">Healthcare</option>
+      <option value="Real State Developer">Real State Developer</option>
+      <option value="Retail Jewelry Store">Retail Jewelry Store</option>
+      <option value="Hotel Chain">Hotel Chain</option>
+      <option value="Financial Services">Financial Services</option>
+      <option value="Agricultural Product">Agricultural Product</option>
+    </select></td><td><select required>
+      <option>-E-</option>
+      <option value="Airline">Airline</option>
+      <option value="Automobile Manufacturing">Automobile Manufacturing</option>
+      <option value="Hyper Market Chain">Hyper Market Chain</option>
+      <option value="Search Service">Search Service</option>
+      <option value="Steel Producer">Steel Producer</option>
+      <option value="Quick Service Resturant">Quick Service Resturant</option>
+      <option value="Software Services">Software Services</option>
+      <option value="Cement">Cement</option>
+      <option value="Healthcare">Healthcare</option>
+      <option value="Real State Developer">Real State Developer</option>
+      <option value="Retail Jewelry Store">Retail Jewelry Store</option>
+      <option value="Hotel Chain">Hotel Chain</option>
+      <option value="Financial Services">Financial Services</option>
+      <option value="Agricultural Product">Agricultural Product</option>
+    </select></td><td><select required>
+      <option>-F-</option>
+      <option value="Airline">Airline</option>
+      <option value="Automobile Manufacturing">Automobile Manufacturing</option>
+      <option value="Hyper Market Chain">Hyper Market Chain</option>
+      <option value="Search Service">Search Service</option>
+      <option value="Steel Producer">Steel Producer</option>
+      <option value="Quick Service Resturant">Quick Service Resturant</option>
+      <option value="Software Services">Software Services</option>
+      <option value="Cement">Cement</option>
+      <option value="Healthcare">Healthcare</option>
+      <option value="Real State Developer">Real State Developer</option>
+      <option value="Retail Jewelry Store">Retail Jewelry Store</option>
+      <option value="Hotel Chain">Hotel Chain</option>
+      <option value="Financial Services">Financial Services</option>
+      <option value="Agricultural Product">Agricultural Product</option>
+    </select></td><td><select required>
+      <option>-G-</option>
+      <option value="Airline">Airline</option>
+      <option value="Automobile Manufacturing">Automobile Manufacturing</option>
+      <option value="Hyper Market Chain">Hyper Market Chain</option>
+      <option value="Search Service">Search Service</option>
+      <option value="Steel Producer">Steel Producer</option>
+      <option value="Quick Service Resturant">Quick Service Resturant</option>
+      <option value="Software Services">Software Services</option>
+      <option value="Cement">Cement</option>
+      <option value="Healthcare">Healthcare</option>
+      <option value="Real State Developer">Real State Developer</option>
+      <option value="Retail Jewelry Store">Retail Jewelry Store</option>
+      <option value="Hotel Chain">Hotel Chain</option>
+      <option value="Financial Services">Financial Services</option>
+      <option value="Agricultural Product">Agricultural Product</option>
+    </select></td><td><select required>
+      <option>-H-</option>
+      <option value="Airline">Airline</option>
+      <option value="Automobile Manufacturing">Automobile Manufacturing</option>
+      <option value="Hyper Market Chain">Hyper Market Chain</option>
+      <option value="Search Service">Search Service</option>
+      <option value="Steel Producer">Steel Producer</option>
+      <option value="Quick Service Resturant">Quick Service Resturant</option>
+      <option value="Software Services">Software Services</option>
+      <option value="Cement">Cement</option>
+      <option value="Healthcare">Healthcare</option>
+      <option value="Real State Developer">Real State Developer</option>
+      <option value="Retail Jewelry Store">Retail Jewelry Store</option>
+      <option value="Hotel Chain">Hotel Chain</option>
+      <option value="Financial Services">Financial Services</option>
+      <option value="Agricultural Product">Agricultural Product</option>
+    </select></td><td><select required>
+      <option>-I-</option>
+      <option value="Airline">Airline</option>
+      <option value="Automobile Manufacturing">Automobile Manufacturing</option>
+      <option value="Hyper Market Chain">Hyper Market Chain</option>
+      <option value="Search Service">Search Service</option>
+      <option value="Steel Producer">Steel Producer</option>
+      <option value="Quick Service Resturant">Quick Service Resturant</option>
+      <option value="Software Services">Software Services</option>
+      <option value="Cement">Cement</option>
+      <option value="Healthcare">Healthcare</option>
+      <option value="Real State Developer">Real State Developer</option>
+      <option value="Retail Jewelry Store">Retail Jewelry Store</option>
+      <option value="Hotel Chain">Hotel Chain</option>
+      <option value="Financial Services">Financial Services</option>
+      <option value="Agricultural Product">Agricultural Product</option>
+    </select></td><td><select required>
+      <option>-J-</option>
+      <option value="Airline">Airline</option>
+      <option value="Automobile Manufacturing">Automobile Manufacturing</option>
+      <option value="Hyper Market Chain">Hyper Market Chain</option>
+      <option value="Search Service">Search Service</option>
+      <option value="Steel Producer">Steel Producer</option>
+      <option value="Quick Service Resturant">Quick Service Resturant</option>
+      <option value="Software Services">Software Services</option>
+      <option value="Cement">Cement</option>
+      <option value="Healthcare">Healthcare</option>
+      <option value="Real State Developer">Real State Developer</option>
+      <option value="Retail Jewelry Store">Retail Jewelry Store</option>
+      <option value="Hotel Chain">Hotel Chain</option>
+      <option value="Financial Services">Financial Services</option>
+      <option value="Agricultural Product">Agricultural Product</option>
+    </select></td><td><select required>
+      <option>-K-</option>
+      <option value="Airline">Airline</option>
+      <option value="Automobile Manufacturing">Automobile Manufacturing</option>
+      <option value="Hyper Market Chain">Hyper Market Chain</option>
+      <option value="Search Service">Search Service</option>
+      <option value="Steel Producer">Steel Producer</option>
+      <option value="Quick Service Resturant">Quick Service Resturant</option>
+      <option value="Software Services">Software Services</option>
+      <option value="Cement">Cement</option>
+      <option value="Healthcare">Healthcare</option>
+      <option value="Real State Developer">Real State Developer</option>
+      <option value="Retail Jewelry Store">Retail Jewelry Store</option>
+      <option value="Hotel Chain">Hotel Chain</option>
+      <option value="Financial Services">Financial Services</option>
+      <option value="Agricultural Product">Agricultural Product</option>
+    </select></td><td><select required>
+      <option>-L-</option>
+      <option value="Airline">Airline</option>
+      <option value="Automobile Manufacturing">Automobile Manufacturing</option>
+      <option value="Hyper Market Chain">Hyper Market Chain</option>
+      <option value="Search Service">Search Service</option>
+      <option value="Steel Producer">Steel Producer</option>
+      <option value="Quick Service Resturant">Quick Service Resturant</option>
+      <option value="Software Services">Software Services</option>
+      <option value="Cement">Cement</option>
+      <option value="Healthcare">Healthcare</option>
+      <option value="Real State Developer">Real State Developer</option>
+      <option value="Retail Jewelry Store">Retail Jewelry Store</option>
+      <option value="Hotel Chain">Hotel Chain</option>
+      <option value="Financial Services">Financial Services</option>
+      <option value="Agricultural Product">Agricultural Product</option>
+    </select></td><td><select required>
+      <option>-M-</option>
+      <option value="Airline">Airline</option>
+      <option value="Automobile Manufacturing">Automobile Manufacturing</option>
+      <option value="Hyper Market Chain">Hyper Market Chain</option>
+      <option value="Search Service">Search Service</option>
+      <option value="Steel Producer">Steel Producer</option>
+      <option value="Quick Service Resturant">Quick Service Resturant</option>
+      <option value="Software Services">Software Services</option>
+      <option value="Cement">Cement</option>
+      <option value="Healthcare">Healthcare</option>
+      <option value="Real State Developer">Real State Developer</option>
+      <option value="Retail Jewelry Store">Retail Jewelry Store</option>
+      <option value="Hotel Chain">Hotel Chain</option>
+      <option value="Financial Services">Financial Services</option>
+      <option value="Agricultural Product">Agricultural Product</option>
+    </select></td>
+    <td><select required>
+      <option>-N-</option>
+      <option value="Airline">Airline</option>
+      <option value="Automobile Manufacturing">Automobile Manufacturing</option>
+      <option value="Hyper Market Chain">Hyper Market Chain</option>
+      <option value="Search Service">Search Service</option>
+      <option value="Steel Producer">Steel Producer</option>
+      <option value="Quick Service Resturant">Quick Service Resturant</option>
+      <option value="Software Services">Software Services</option>
+      <option value="Cement">Cement</option>
+      <option value="Healthcare">Healthcare</option>
+      <option value="Real State Developer">Real State Developer</option>
+      <option value="Retail Jewelry Store">Retail Jewelry Store</option>
+      <option value="Hotel Chain">Hotel Chain</option>
+      <option value="Financial Services">Financial Services</option>
+      <option value="Agricultural Product">Agricultural Product</option>
+    </select></td>
+    </tr>
+            </table>
+
+        </div>
+
+
+        <div class="container-fluid" style="min-height: 700px; max-width: 1000px; padding-top: 50px">
+
+            <!-- Balance Sheet, PNL and Ratios: UL-->
+            <ul style="list-style: none;">
+                
+                <!-- Balance Sheet Drop-Down Slider -->
+                <li style="margin-bottom: 20px">
+                    <a class="btn btn-success navbar-collapse collapse in" style="background-color: var(--bar-bg-color)" role="button" data-toggle="collapse" href="#BalanceSheet" aria-expanded="true" aria-controls="BalanceSheet">
+                        <div class="text-left" style="padding-bottom: 5px">
+                            <center>Income Statement</center>
+                        </div>
+                    </a>
+                </li>
+                <!-- Balance Sheet Table: href for the above section; notice that id="BalanceSheet" and above the href="#BalanceSheet"-->
+                <div class="collapse in" id="BalanceSheet">
+                    <div class="well">
+                        <div class="container-fluid" style="padding-left: 100px; min-width: 800px; max-width: 800px">
+                  <table class="table-striped-balancesheet" border="2" style="width: 900px; height: 200px; position: relative; right: 150px; top:1px; border-radius: 10px; overflow: hidden; " > 
+                            {% for row in incomeStatement %}
+              <tr>
+                {% for element in row %}
+                {% if element == row[0] %}
+                 <td style="width: 200px;"><button>{{element}}</button></td>
+                {% else %}
+                 <td>{{element}}</td>
+                 {% endif %}
+                {% endfor %}
+              </tr>
+        {% endfor %}
+    </table>
+                        </div>
+                    </div>
+                </div>
+        
+                <!-- PNL Drop-Down Slider -->
+                <li style="margin-bottom: 20px">
+                    <a class="btn btn-success collapse navbar-collapse" style="background-color: var(--bar-bg-color)" role="button" data-toggle="collapse" href="#PNL" aria-expanded="true" aria-controls="PNL">
+                        <div class="text-left" style="padding-bottom: 5px">
+                            <center>Balance Sheet</center>
+                        </div>
+                    </a>
+                </li>
+                <!-- PNL Table: href for the above section; notice that id="PNL" and above the href="#PNL"-->
+                <div class="collapse" id="PNL">
+                    <div class="well">
+                        <div class="container-fluid" style="padding-left: 100px ;min-width: 800px;max-width: 800px">
+                            <table class="table-striped-balancesheet" border="2" style="width: 900px; height: 200px; position: relative; right: 150px; top:1px; border-radius: 10px; overflow: hidden; ">
+                                {% for row in balanceSheet %}
+              <tr>
+                {% for element in row %}
+                {% if element == row[0] %}
+                 <td style="width: 200px;"><button style="height: 40px;">{{element}}</button></td>
+                {% else %}
+                 <td>{{element}}</td>
+                 {% endif %}
+                {% endfor %}
+              </tr>
+        {% endfor %}
+                            </table>
+                        </div>
+                    </div>
+                </div>
+        
+                <!-- Ratios Drop-Down Slider -->
+                <li style="margin-bottom: 20px">
+                    <a class="btn btn-success collapse navbar-collapse" style="background-color: var(--bar-bg-color)" role="button" data-toggle="collapse" href="#Ratios" aria-expanded="false" aria-controls="Ratios">
+                        <div class="text-left" style="padding-bottom: 5px">    
+                            <center>Ratios</center>
+                        </div>
+                    </a>
+                </li>
+                <!-- Ratios Table: href for the above section; notice that id="Ratios" and above the href="#Ratios"-->
+                <div class="collapse" id="Ratios">
+                    <div class="well">
+                            <div class="container-fluid" style="padding-left: 100px ;min-width: 800px;max-width: 800px">
+                                   <table class="table-striped-balancesheet" border="2" style="width: 900px; height: 350px; position: relative; right: 150px; top:1px; border-radius: 10px; overflow: hidden; ">
+                                       {% for row in ratios %}
+          <tr>
+                {% for element in row %}
+                {% if element == row[0] %}
+                 <td style="width: 200px;"><button style="height: 40px;">{{element}}</button></td>
+                {% else %}
+                 <td>{{element}}</td>
+                 {% endif %}
+                {% endfor %}
+              </tr>
+    {% endfor %}
+                                   </table>
+                            </div>
+                    </div>
+                </div>
+            </ul>
+        
+        </div>
+
+        
+        <!-- JavaScript linking for BootStrap JS Codes - Doesn't show in body anywhere -->
+        <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+        <script type="text/javascript" src=" {{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+        
+    </body>
+
+    <footer>
+        <div class="footer-container" style="background-color: var(--bar-bg-color)">
+            <footer class="page-footer" style="padding: 10px">
+                <div class="footer-copyright">
+                    <div class="container text-center" style="color: var(--bar-text-color); text-emphasis: bold;">
+                        © 2019 CHRIST (Deemed to be University)
+                    </div>
+                </div>
+            </footer>
+        </div>
+    </footer>
+    
+</html>

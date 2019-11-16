@@ -154,10 +154,12 @@ label.light {
           <legend>Enter your credentials:</legend>
           
           <label for="name">Register Number:</label>
+          <p style="color: red; font-size: 12px;">{{ alertUsername }}</p>
           <input type="number" id="number" name="username" required>
 
           
           <label for="password">Password:</label>
+          <p style="color: red; font-size: 12px;">{{ alertPassword }}</p>
           <input type="password" id="password" name="password" required>
         <img src="download.png" height="5%" width="2.5%" onclick="change()" id="img" style="position: absolute; top: 285px; left: 850px;">
         Not a member? <a href="/signup">Sign Up</a>  
