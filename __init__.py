@@ -3,6 +3,10 @@ import os
 import pandas as pd
 import numpy as np
 import sqlite3
+from passlib.hash import sha256_crypt
+from dbConnect import connection
+import gc
+from datetime import datetime
 
 app = Flask(__name__)
 app.secret_key = os.urandom(24)
@@ -23,59 +27,110 @@ loginDirectory = {
 
 @app.route('/signup', methods = ['POST','GET'])
 def signup():
-    
 
     if request.method == 'POST':
         regno = int(request.form['regno'])
         name = request.form['name']
+        course = request.form['course']
         email = request.form['email']
-        password = request.form['password']
+        password = sha256_crypt.encrypt(request.form['password'])
 
-        if regno in regnoDirectory:
-            if regno not in loginDirectory:
-                if 'username' in session:
-                    session.pop('username',None)
-                loginDirectory[regno] = password
-                return redirect(url_for('login'))
-            else:
-                return 'Already a user!'
-        else:
+        # Check for regno validity
+        if regno not in regnoDirectory:
+            # flash('Not authorized to sign up! Sorry!')
             return 'Not authorized to sign up! Sorry!'
-    return render_template('signup.html')
+
+        c, conn = connection('usersdb')
+
+        c.execute('SELECT * FROM students WHERE regno=%s;',tuple([regno]))
+        x = c.fetchall()
+        if len(x) > 0:
+            # Duplicate username                
+            
+            #flash("That username is already taken, please choose another")
+
+            return 'You are already a user!<br><br><a href="/login">Log in</a> to your account.'
+
+            #return render_template('signup.html', signupStatus = signupStatus)
+
+        else:
+            # Valid username
+
+            # Logout from existing user
+            if 'regno' in session:
+                session.clear()
+
+            # Insert new user into database
+            c.execute('INSERT INTO students(regno,name,course,email,password,date_created) VALUES(%s,%s,%s,%s,%s,%s)',(regno,name,course,email,password, datetime.now()))
+            conn.commit()
+            
+            flash("Thanks for registering!")
+            c.close()
+            gc.collect()
+
+            # Signup successful
+            signupStatus = 'Successfully signed up!'
+
+            # Login to new user
+            session['logged_in'] = True
+            session['regno'] = regno
+            session['name'] = name
+
+            return redirect(url_for('gamePage'))
+
+
+        
+    return render_template('signup.html', signupStatus='')
 
 @app.route('/', methods = ['GET','POST'])
 @app.route('/login', methods = ['POST','GET'])
 def login():
     if request.method == 'POST':
-        username = int(request.form['username'])
-        password = request.form['password']
-        if username in loginDirectory:
-            if loginDirectory[username] == password:
-                
-                session['username'] = request.form['username']
-                return redirect(url_for('gamePage'))
+        alertPassword = ''
+        alertUsername = ''
+
+        #return render_template('gamePage.html')
+        try:
+            c, conn = connection('usersdb')
+            c.execute("SELECT * FROM students WHERE regno = %s", tuple([request.form['username']]))
+            data = c.fetchall()
+
+            if len(data) > 0:
+                if sha256_crypt.verify(request.form['password'], data[0][4]):
+                    session['logged_in'] = True
+                    session['regno'] = request.form['username']
+                    session['name'] = data[0][1]
+
+                    flash("You are now logged in")
+                    return redirect(url_for("gamePage"))
+
+                else:
+                    alertPassword = "Invalid password, try again."
+                    return render_template("login.html", alertPassword = alertPassword)
             else:
-                alertPassword = 'Invalid Password'
-                alertUsername = ''
-                return render_template('login.html', alertPassword = alertPassword)
-        else:
-            alertUsername = 'Invalid Username'
-            alertPassword = ''
-            return render_template('login.html', alertUsername = alertUsername)
+                alertUsername = "Invalid username, try again."
+                return render_template("login.html", alertUsername = alertUsername) 
+            c.close()
+            gc.collect()
+            
+        except Exception as e:
+            #flash(e)
+            return (str(e))
     else:
-        if 'username' in session:
+        if 'regno' in session:
             return redirect(url_for('gamePage'))
         else:
-            return render_template('login.html')
+            return render_template('login.html', alertPassword = '')
 
 @app.route('/logout')
 def logout():
-    session.pop('username',None)
+    session['logged_in'] = False
+    session.pop('regno',None)
     return redirect(url_for('login'))
 
 @app.route('/checksession')
 def checksession():
-    if 'username' in session:
+    if 'regno' in session:
         return 'Status: Logged in'
     else:
         return 'Status: Logged out'
@@ -93,44 +148,46 @@ def test():
 
 @app.route('/gamePage')
 def gamePage():
-    if 'username' in session:
+    if 'regno' in session:
         
-
-        con = sqlite3.connect('test.db')
-        print('Database opened successfully.')
-
+        # Load gamepage:
+        #return render_template('gamePage.html')
+        c, conn = connection('mydb')
+        
+        incomeStatementFields = ('Excise Duty','Material Expenses','Stock In Trade','Employee Cost','Fuel & Electricity')
+        balanceSheetFields = ('PPE','Inventory','Trade Receivables','Trade Payables')
+        ratiosFields = ('Receivable Days','Inventory Days','Payable Days','EBITDA Margin(%)','Asset Turnover (times)','Return on Assets(%)','Return on Networth (%)')
         # Income Statement
-
-        cur = con.cursor()
-        cur.execute("select * from mastersheetIncome")
-    
-        incomeStatement = cur.fetchall()
+        c.execute("select * from mater_table where Fields = %s or Fields = %s or \
+            Fields = %s or Fields = %s or Fields = %s;",incomeStatementFields)
+        incomeStatement = c.fetchall()
         
         # Balance Sheet
-
-        cur = con.cursor()
-        cur.execute("select * from mastersheetBalanceSheet")
-    
-        balanceSheet = cur.fetchall()
+        c.execute("select * from mater_table where Fields = %s or Fields = %s or \
+            Fields = %s or Fields = %s;",balanceSheetFields)  
+        balanceSheet = c.fetchall()
 
         # Ratios
-        cur = con.cursor()
-        cur.execute("select * from mastersheetRatios")
-    
-        ratios = cur.fetchall()
+        c.execute("select * from mater_table where Fields = %s or Fields = %s or \
+            Fields = %s or Fields = %s or Fields = %s or Fields = %s or Fields = %s;",ratiosFields)
+        ratios = c.fetchall()
+        
+        conn.close()
+        gc.collect()
 
-        return render_template('abc.html', incomeStatement = incomeStatement, balanceSheet = balanceSheet, ratios = ratios)
-    return 'You are not logged in!'
+        return render_template('abc.html', name = session['name'], incomeStatement = incomeStatement, balanceSheet = balanceSheet, ratios = ratios)
+    
+    return redirect(url_for('login'))
 
 @app.route('/tutorial')
 def tutorial():
-    if 'username' in session:
+    if 'regno' in session:
         return render_template('tutorial.html')
     return 'You are not logged in!'
 
 @app.route('/faq')
 def faq():
-    if 'username' in session:
+    if 'regno' in session:
         return render_template('faq.html')
     return 'You are not logged in!'
 

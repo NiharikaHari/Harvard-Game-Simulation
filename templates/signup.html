@@ -132,9 +132,9 @@ label.light {
       <form action=# method="post">
       
         <h1>Sign Up</h1>
-        
+        <p style="color: red; font-size: 12px; text-align: center;">{{ signupStatus }}</p>
         <fieldset>
-          <legend>Your basic info</legend>
+          <legend>Your Basic Info</legend>
           
           <label for="name">Register Number:</label>
           <input type="number" id="number" name="regno" required>
@@ -142,6 +142,9 @@ label.light {
           <label for="name">Name:</label>
           <input type="text" id="name" name="name" required>
           
+          <label for="course">Course:</label>
+          <input type="text" id="course" name="course" required>
+
           <label for="mail">Email:</label>
           <input type="email" id="mail" name="email" required>
           
@@ -150,7 +153,6 @@ label.light {
         
         Already a member? <a href="/login">Login</a>  
         </fieldset>
-        
         
 
         <button type="submit">Sign Up</button>
