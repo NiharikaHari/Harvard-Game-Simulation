@@ -17,6 +17,11 @@ app.secret_key = os.urandom(24)
 
 regnoDirectory = list(np.arange(1740201,1740288))
 
+gameDirectory = {
+    1217: np.arange(1740201,1740218),
+    1219: np.arange(1740219,1740245)
+}
+
 loginDirectory = {
     1740217: 'shornabho',
     1740236: 'shreya',
@@ -70,11 +75,22 @@ def signup():
 
             # Signup successful
             signupStatus = 'Successfully signed up!'
-
+            flash(signupStatus)
+            flash("You're now logged in!")
             # Login to new user
             session['logged_in'] = True
             session['regno'] = regno
             session['name'] = name
+            session['game-id'] = 0
+            
+            for gameid in gameDirectory:
+                if regno in gameDirectory[gameid]:
+                    session['game-id'] = gameid
+                    break
+                else:
+                    session['game-id'] = 0
+            
+            
 
             return redirect(url_for('gamePage'))
 
@@ -100,7 +116,15 @@ def login():
                     session['logged_in'] = True
                     session['regno'] = request.form['username']
                     session['name'] = data[0][1]
-
+                    session['game-id'] = 0
+                    for gameid in gameDirectory:
+                        print(gameid)
+                        if int(request.form['username']) in gameDirectory[gameid]:
+                            session['game-id'] = gameid
+                            break
+                        else:
+                            session['game-id'] = 0
+                    
                     flash("You are now logged in")
                     return redirect(url_for("gamePage"))
 
@@ -152,30 +176,30 @@ def gamePage():
         
         # Load gamepage:
         #return render_template('gamePage.html')
-        c, conn = connection('mydb')
+        c, conn = connection('company_data')
         
         incomeStatementFields = ('Excise Duty','Material Expenses','Stock In Trade','Employee Cost','Fuel & Electricity')
         balanceSheetFields = ('PPE','Inventory','Trade Receivables','Trade Payables')
         ratiosFields = ('Receivable Days','Inventory Days','Payable Days','EBITDA Margin(%)','Asset Turnover (times)','Return on Assets(%)','Return on Networth (%)')
         # Income Statement
-        c.execute("select * from mater_table where Fields = %s or Fields = %s or \
+        c.execute("select * from master_table where Fields = %s or Fields = %s or \
             Fields = %s or Fields = %s or Fields = %s;",incomeStatementFields)
         incomeStatement = c.fetchall()
         
         # Balance Sheet
-        c.execute("select * from mater_table where Fields = %s or Fields = %s or \
+        c.execute("select * from master_table where Fields = %s or Fields = %s or \
             Fields = %s or Fields = %s;",balanceSheetFields)  
         balanceSheet = c.fetchall()
 
         # Ratios
-        c.execute("select * from mater_table where Fields = %s or Fields = %s or \
+        c.execute("select * from master_table where Fields = %s or Fields = %s or \
             Fields = %s or Fields = %s or Fields = %s or Fields = %s or Fields = %s;",ratiosFields)
         ratios = c.fetchall()
         
         conn.close()
         gc.collect()
 
-        return render_template('abc.html', name = session['name'], incomeStatement = incomeStatement, balanceSheet = balanceSheet, ratios = ratios)
+        return render_template('abc.html', name = session['name'], gameid=str(session['game-id']), incomeStatement = incomeStatement, balanceSheet = balanceSheet, ratios = ratios)
     
     return redirect(url_for('login'))
 
